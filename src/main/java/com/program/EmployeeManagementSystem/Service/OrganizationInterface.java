@@ -7,7 +7,7 @@ import java.util.List;
 public interface OrganizationInterface {
     public void addEmployee(EmployeeModel employeeModel);
 
-    public void deleteEmployee(int id);
+    public void deleteEmployee(String email);
 
     public List<EmployeeModel> getAll();
 

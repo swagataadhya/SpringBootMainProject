@@ -1,7 +1,7 @@
 package com.program.EmployeeManagementSystem.Controller;
 
 import com.program.EmployeeManagementSystem.Model.AssetModel;
-import com.program.EmployeeManagementSystem.Model.AssetOperation;
+
 import com.program.EmployeeManagementSystem.Service.AssetServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,18 +18,9 @@ public class AssetController {
     AssetServiceImpl assetServiceImpl;
 
     @PostMapping
-    public ResponseEntity<String> addAsset(@RequestBody AssetOperation ao) {
-        if (ao.getRole().equals("admin") || ao.getRole().equals("manager")) {
-            AssetModel am = new AssetModel();
-            am.setAsset_name(ao.getAsset_name());
-            am.setAsset_price(ao.getAsset_price());
-            am.setAsset_type(ao.getAsset_type());
-            am.setAsset_copyright(ao.getAsset_copyright());
-            assetServiceImpl.addAsset(am);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+    public ResponseEntity<String> addAsset(@RequestBody AssetModel assetModel) {
+        assetServiceImpl.addAsset(assetModel);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
@@ -43,35 +34,18 @@ public class AssetController {
     }
 
     @DeleteMapping
-    public ResponseEntity<String> deleteAsset(@RequestBody AssetOperation ao) {
-        if (ao.getRole().equals("admin")) {
-            AssetModel am = new AssetModel();
-            am.setId(ao.getAsset_id());
-            assetServiceImpl.deleteAsset(am);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+    public ResponseEntity<String> deleteAsset(@RequestBody AssetModel assetModel) {
+        assetServiceImpl.deleteAsset(assetModel);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<String> updateasset(@RequestBody AssetOperation ao) {
+    public ResponseEntity<String> updateasset(@RequestBody AssetModel assetModel) {
         try {
-            if (ao.getRole().equals("admin") || ao.getRole().equals("manager")) {
-                AssetModel am = new AssetModel();
-                am.setId(ao.getAsset_id());
-                am.setAsset_name(ao.getAsset_name());
-                am.setAsset_price(ao.getAsset_price());
-                am.setAsset_type(ao.getAsset_type());
-                am.setAsset_copyright(ao.getAsset_copyright());
-                assetServiceImpl.updateAsset(am);
-                return new ResponseEntity<>(HttpStatus.CREATED);
-            } else {
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-            }
+            assetServiceImpl.updateAsset(assetModel);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
 }

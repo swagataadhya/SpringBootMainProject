@@ -11,7 +11,7 @@ public class EmployeeService implements EmployeeInterface {
     EmployeeRepo employeeRepo;
 
     @Override
-    public EmployeeModel getEmployee(int id) {
-        return employeeRepo.findAllById(id);
+    public EmployeeModel getEmployee(String email) {
+        return employeeRepo.findAllByEmail(email);
     }
 }
