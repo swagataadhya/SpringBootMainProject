@@ -46,7 +46,7 @@ public class EmployeeController {
             emp.setEmployee_address(employeeOperation.getEmployee_address());
             emp.setEmployee_phoneno(employeeOperation.getEmployee_phoneno());
             emp.setRole(employeeOperation.getEmprole());
-            emp.setOrgid(employeeOperation.getOrgid());
+            emp.setOrgId(employeeOperation.getOrgid());
             emp.setEmail(employeeOperation.getEmail());
             organizationInterface.addEmployee(emp);
             return new ResponseEntity<>("Created", HttpStatus.CREATED);
@@ -87,7 +87,7 @@ public class EmployeeController {
             emp.setEmployee_address(employeeOperation.getEmployee_address());
             emp.setEmployee_phoneno(employeeOperation.getEmployee_phoneno());
             emp.setRole(employeeOperation.getEmprole());
-            emp.setOrgid(employeeOperation.getOrgid());
+            emp.setOrgId(employeeOperation.getOrgid());
             emp.setEmail(employeeOperation.getEmail());
             organizationInterface.updateEmployee(emp);
             return new ResponseEntity<>("Updated", HttpStatus.ACCEPTED);

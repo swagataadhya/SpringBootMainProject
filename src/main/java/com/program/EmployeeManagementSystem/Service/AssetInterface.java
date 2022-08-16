@@ -5,11 +5,11 @@ import com.program.EmployeeManagementSystem.Model.AssetModel;
 import java.util.List;
 
 public interface AssetInterface {
-    public void addAsset(AssetModel am);
+    void addAsset(AssetModel am);
 
-    public List<AssetModel> getAll();
+    List<AssetModel> getAll();
 
-    public void deleteAsset(AssetModel am);
+    void deleteAsset(AssetModel am);
 
-    public void updateAsset(AssetModel am);
+    void updateAsset(AssetModel am);
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AssetService implements AssetInterface {
+public class AssetServiceImpl implements AssetInterface {
     @Autowired
     AssetRepo assetRepo;
 

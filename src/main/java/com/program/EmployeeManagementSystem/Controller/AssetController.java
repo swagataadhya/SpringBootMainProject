@@ -2,7 +2,7 @@ package com.program.EmployeeManagementSystem.Controller;
 
 import com.program.EmployeeManagementSystem.Model.AssetModel;
 import com.program.EmployeeManagementSystem.Model.AssetOperation;
-import com.program.EmployeeManagementSystem.Service.AssetService;
+import com.program.EmployeeManagementSystem.Service.AssetServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api/assets")
 public class AssetController {
     @Autowired
-    AssetService assetService;
+    AssetServiceImpl assetServiceImpl;
 
     @PostMapping
     public ResponseEntity<String> addAsset(@RequestBody AssetOperation ao) {
@@ -25,7 +25,7 @@ public class AssetController {
             am.setAsset_price(ao.getAsset_price());
             am.setAsset_type(ao.getAsset_type());
             am.setAsset_copyright(ao.getAsset_copyright());
-            assetService.addAsset(am);
+            assetServiceImpl.addAsset(am);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -35,7 +35,7 @@ public class AssetController {
     @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<List<AssetModel>> getAsset() {
         try {
-            List<AssetModel> am = assetService.getAll();
+            List<AssetModel> am = assetServiceImpl.getAll();
             return new ResponseEntity<>(am, HttpStatus.OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -47,7 +47,7 @@ public class AssetController {
         if (ao.getRole().equals("admin")) {
             AssetModel am = new AssetModel();
             am.setId(ao.getAsset_id());
-            assetService.deleteAsset(am);
+            assetServiceImpl.deleteAsset(am);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -64,7 +64,7 @@ public class AssetController {
                 am.setAsset_price(ao.getAsset_price());
                 am.setAsset_type(ao.getAsset_type());
                 am.setAsset_copyright(ao.getAsset_copyright());
-                assetService.updateAsset(am);
+                assetServiceImpl.updateAsset(am);
                 return new ResponseEntity<>(HttpStatus.CREATED);
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

@@ -7,10 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Collections;
 
 @Data
 @Entity
@@ -31,21 +28,17 @@ public class EmployeeModel implements UserDetails {
     private String employee_nationality;
     @Column
     private String employee_password;
-    @Column
-    private int orgid;
+    @Column(name = "orgid")
+    private int orgId;
     @Column
     private String role;
     @Column
     private String email;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "role_table", joinColumns = @JoinColumn(name = "employee", referencedColumnName = "orgid"), inverseJoinColumns = @JoinColumn(name = "organization", referencedColumnName = "id"))
-    private Set<OrganizationModel> roles = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = this.roles.stream().map((role) -> new SimpleGrantedAuthority(role.getOrgname())).collect(Collectors.toList());
-        return authorities;
+        return Collections.singletonList(new SimpleGrantedAuthority(role));
     }
 
     @Override
