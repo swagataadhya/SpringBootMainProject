@@ -33,7 +33,7 @@ public class OrganizationService implements OrganizationInterface {
         e1.setRole(employeeModel.getRole());
         e1.setEmployee_name(employeeModel.getEmployee_name());
         e1.setEmployee_address(employeeModel.getEmployee_address());
-        e1.setEmployee_phoneno(employeeModel.getEmployee_phoneno());
+        e1.setPhoneNumber(employeeModel.getPhoneNumber());
         e1.setEmployee_nationality(employeeModel.getEmployee_nationality());
         e1.setEmployee_gender(employeeModel.getEmployee_gender());
         e1.setEmployee_password(employeeModel.getEmployee_password());

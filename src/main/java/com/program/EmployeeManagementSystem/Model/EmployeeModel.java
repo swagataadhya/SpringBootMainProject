@@ -20,8 +20,8 @@ public class EmployeeModel implements UserDetails {
     private String employee_name;
     @Column
     private String employee_address;
-    @Column
-    private String employee_phoneno;
+    @Column(name = "employee_phoneno")
+    private String phoneNumber;
     @Column
     private String employee_gender;
     @Column
@@ -34,6 +34,7 @@ public class EmployeeModel implements UserDetails {
     private String role;
     @Column
     private String email;
+
 
 
     @Override

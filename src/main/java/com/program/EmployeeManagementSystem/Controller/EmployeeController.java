@@ -44,7 +44,7 @@ public class EmployeeController {
             emp.setEmployee_password(employeeOperation.getEmployee_password());
             emp.setEmployee_nationality(employeeOperation.getEmployee_nationality());
             emp.setEmployee_address(employeeOperation.getEmployee_address());
-            emp.setEmployee_phoneno(employeeOperation.getEmployee_phoneno());
+            emp.setPhoneNumber(employeeOperation.getEmployee_phoneno());
             emp.setRole(employeeOperation.getEmprole());
             emp.setOrgId(employeeOperation.getOrgid());
             emp.setEmail(employeeOperation.getEmail());
@@ -85,7 +85,7 @@ public class EmployeeController {
             emp.setEmployee_password(employeeOperation.getEmployee_password());
             emp.setEmployee_nationality(employeeOperation.getEmployee_nationality());
             emp.setEmployee_address(employeeOperation.getEmployee_address());
-            emp.setEmployee_phoneno(employeeOperation.getEmployee_phoneno());
+            emp.setPhoneNumber(employeeOperation.getEmployee_phoneno());
             emp.setRole(employeeOperation.getEmprole());
             emp.setOrgId(employeeOperation.getOrgid());
             emp.setEmail(employeeOperation.getEmail());
