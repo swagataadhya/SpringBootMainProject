@@ -1,20 +1,22 @@
 package com.program.EmployeeManagementSystem.Service;
 
 import com.program.EmployeeManagementSystem.Model.EmployeeModel;
+import com.program.EmployeeManagementSystem.Model.OrganizationModel;
 import com.program.EmployeeManagementSystem.Repository.EmployeeRepo;
+import com.program.EmployeeManagementSystem.Repository.OrganizationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-
 @Service
 public class OrganizationService implements OrganizationInterface {
     @Autowired
     EmployeeRepo employeeRepo;
     @Autowired
     PasswordEncoder passwordEncoder;
+    @Autowired
+    OrganizationRepo organizationRepo;
 
     @Override
     public boolean addEmployee(EmployeeModel employeeModel) {
@@ -94,5 +96,29 @@ public class OrganizationService implements OrganizationInterface {
         {
             return false;
         }
+    }
+
+    //ORGANIZATION OPERATION
+
+    @Override
+    public void addOrganization(OrganizationModel org) {
+        organizationRepo.save(org);
+    }
+
+    @Override
+    public void deleteOrganization(int org) {
+        organizationRepo.deleteById(org);
+    }
+
+    @Override
+    public List<OrganizationModel> getAllOrganization() {
+        return organizationRepo.findAll();
+    }
+
+    @Override
+    public void updateOrganization(int id, OrganizationModel organizationModel) {
+        OrganizationModel o=organizationRepo.findById(id).orElseThrow();
+        o.setOrgname(organizationModel.getOrgname());
+        organizationRepo.save(o);
     }
 }

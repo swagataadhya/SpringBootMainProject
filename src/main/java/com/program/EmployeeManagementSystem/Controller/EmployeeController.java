@@ -4,9 +4,12 @@ import com.program.EmployeeManagementSystem.Model.EmployeeModel;
 import com.program.EmployeeManagementSystem.Service.EmployeeInterface;
 import com.program.EmployeeManagementSystem.Service.OrganizationInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,12 +21,18 @@ public class EmployeeController {
     EmployeeInterface employeeInterface;
     @Autowired
     OrganizationInterface organizationInterface;
-
     @GetMapping(value = "/login/{email}", produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<EmployeeModel> getEmployee(@PathVariable("email") String email) {
         try {
-            EmployeeModel emp = employeeInterface.getEmployee(email);
-            return new ResponseEntity<>(emp,HttpStatus.OK);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (email.equals(authentication.getName())) {
+                EmployeeModel emp = employeeInterface.getEmployee(email);
+                return new ResponseEntity<>(emp, HttpStatus.OK);
+            }
+            else
+            {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
         } catch (NullPointerException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

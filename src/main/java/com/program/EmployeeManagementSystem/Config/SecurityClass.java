@@ -36,6 +36,10 @@ public class SecurityClass extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT,"/api/assets/**").hasAnyAuthority(ADMIN,MANAGER)
                 .antMatchers(HttpMethod.DELETE,"/api/assets/**").hasAnyAuthority(ADMIN)
                 .antMatchers(HttpMethod.GET,"/api/assets/**").hasAnyAuthority(ADMIN,MANAGER,EMPLOYEE)
+                .antMatchers(HttpMethod.POST,"/api/organization/**").hasAnyAuthority(ADMIN)
+                .antMatchers(HttpMethod.PUT,"/api/organization/**").hasAnyAuthority(ADMIN)
+                .antMatchers(HttpMethod.DELETE,"/api/organization/**").hasAnyAuthority(ADMIN)
+                .antMatchers(HttpMethod.GET,"/api/organization/**").hasAnyAuthority(ADMIN,MANAGER,EMPLOYEE)
                 .anyRequest().authenticated()
                 .and().httpBasic();
         http.csrf().disable();

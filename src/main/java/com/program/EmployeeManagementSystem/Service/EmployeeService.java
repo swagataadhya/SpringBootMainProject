@@ -13,7 +13,7 @@ public class EmployeeService implements EmployeeInterface {
     @Override
     public EmployeeModel getEmployee(String email) {
         EmployeeModel employeeModel= employeeRepo.findAllByEmail(email);
-        employeeModel.setEmployee_password("THIS INFORMATION CANNOT BE LEAKED");
+        //employeeModel.setEmployee_password("THIS INFORMATION CANNOT BE LEAKED");
         return employeeModel;
     }
 }
