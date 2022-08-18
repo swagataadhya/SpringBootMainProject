@@ -19,8 +19,14 @@ public class AssetController {
 
     @PostMapping
     public ResponseEntity<String> addAsset(@RequestBody AssetModel assetModel) {
-        assetServiceImpl.addAsset(assetModel);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        if (assetModel.getAsset_name().length()>0&&assetModel.getAsset_copyright().length()>0&&assetModel.getAsset_price().length()>0&&assetModel.getAsset_type().length()>0)
+        {
+            assetServiceImpl.addAsset(assetModel);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        else {
+            return new ResponseEntity<>("Please enter valid data",HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
@@ -35,12 +41,19 @@ public class AssetController {
 
     @DeleteMapping
     public ResponseEntity<String> deleteAsset(@RequestBody AssetModel assetModel) {
-        assetServiceImpl.deleteAsset(assetModel);
-        return new ResponseEntity<>(HttpStatus.OK);
+        try
+        {
+            assetServiceImpl.deleteAsset(assetModel);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping
-    public ResponseEntity<String> updateasset(@RequestBody AssetModel assetModel) {
+    public ResponseEntity<String> updateAsset(@RequestBody AssetModel assetModel) {
         try {
             assetServiceImpl.updateAsset(assetModel);
             return new ResponseEntity<>(HttpStatus.CREATED);

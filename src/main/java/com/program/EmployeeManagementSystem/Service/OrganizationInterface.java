@@ -5,11 +5,11 @@ import com.program.EmployeeManagementSystem.Model.EmployeeModel;
 import java.util.List;
 
 public interface OrganizationInterface {
-    public void addEmployee(EmployeeModel employeeModel);
+    public boolean addEmployee(EmployeeModel employeeModel);
 
-    public void deleteEmployee(String email);
+    public boolean deleteEmployee(String email);
 
     public List<EmployeeModel> getAll();
 
-    public void updateEmployee(EmployeeModel employeeModel);
+    public boolean updateEmployee(String email,EmployeeModel employeeModel);
 }
