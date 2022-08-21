@@ -23,38 +23,38 @@ public class EmployeeModel implements UserDetails {
     private int id;
 
     @Column
-    @NotEmpty
+    @NotEmpty(message = "Name should not be empty")
     @Pattern(message="Only characters are allowed", regexp = "^[a-zA-Z ]+$")
     private String employee_name;
 
     @NotEmpty(message = "Enter Address")
     @Column
     private String employee_address;
-    @NotEmpty
+    @NotEmpty(message = "Phone number should not be empty")
     @Pattern(message="Phone number is not valid", regexp = "^[0-9]{10}$")
     @Column(name = "employee_phoneno")
     private String phoneNumber;
-    @NotEmpty
+    @NotEmpty(message = "Gender should not be empty")
     @Column
     private String employee_gender;
-    @NotEmpty
+    @NotEmpty(message = "Nationality should not be empty")
     @Column
     private String employee_nationality;
 
     @Column
-    @NotEmpty
+    @NotEmpty(message = "Password should not be empty")
     private String employee_password;
-    @NotNull
+    @NotNull(message = "orgId should not be empty")
     @Column(name = "orgid")
     private int orgId;
 
     @Column
-    @NotEmpty
+    @NotEmpty(message = "Role should not be empty")
     @Pattern(message="Only characters are allowed", regexp = "^[a-zA-Z ]+$")
     private String role;
 
     @Column
-    @NotEmpty
+    @NotEmpty(message = "Email should not be empty")
     @Email(message = "Email is not valid", regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")
     private String email;
 
