@@ -10,8 +10,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
+import javax.validation.UnexpectedTypeException;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -38,19 +42,14 @@ public class EmployeeController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<String> addEmployee(@RequestBody EmployeeModel employeeModel)
+    @PostMapping(produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<String> addEmployee(@RequestBody @Valid EmployeeModel employeeModel)
     {
-        if(employeeModel.getEmployee_password().length()>0&&employeeModel.getEmployee_address().length()>0&&employeeModel.getEmployee_nationality().length()>0&&employeeModel.getEmployee_name().length()>0&&employeeModel.getEmployee_password().length()>0&&employeeModel.getEmployee_gender().length()>0&&employeeModel.getEmail().length()>0&&employeeModel.getPhoneNumber().length()>0&&employeeModel.getRole().length()>0&&!employeeModel.getPassword().contains("-")&&employeeModel.getPhoneNumber().length()<=10)
-        {
-            if(organizationInterface.addEmployee(employeeModel))
-                return new ResponseEntity<>("Created", HttpStatus.CREATED);
-            else
-                return new ResponseEntity<>("EMAIL ID ALREADY EXISTS",HttpStatus.BAD_REQUEST);
-        }
-        else {
-            return new ResponseEntity<>("Please enter valid data",HttpStatus.BAD_REQUEST);
-        }
+        if(organizationInterface.addEmployee(employeeModel))
+            return new ResponseEntity<>("Created", HttpStatus.CREATED);
+        else
+            return new ResponseEntity<>("EMAIL ID ALREADY EXISTS",HttpStatus.BAD_REQUEST);
+
     }
 
     @DeleteMapping("{email}")
@@ -70,7 +69,7 @@ public class EmployeeController {
         }
     }
     @PutMapping("/{email}")
-    public ResponseEntity<String> updateEmployee(@PathVariable("email")String email,@RequestBody EmployeeModel employeeModel) {
+    public ResponseEntity<String> updateEmployee(@PathVariable("email")String email,@RequestBody @Valid EmployeeModel employeeModel) {
         if(organizationInterface.updateEmployee(email,employeeModel))
             return new ResponseEntity<>("Updated", HttpStatus.ACCEPTED);
         else

@@ -34,6 +34,7 @@ public class AssetServiceImpl implements AssetInterface {
         am2.setAsset_copyright(am.getAsset_copyright());
         am2.setAsset_price(am.getAsset_price());
         am2.setAsset_name(am.getAsset_name());
+        am2.setOrgid(am.getOrgid());
         assetRepo.save(am2);
     }
 }

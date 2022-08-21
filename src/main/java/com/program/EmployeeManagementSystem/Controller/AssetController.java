@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,8 +18,8 @@ public class AssetController {
     @Autowired
     AssetServiceImpl assetServiceImpl;
 
-    @PostMapping
-    public ResponseEntity<String> addAsset(@RequestBody AssetModel assetModel) {
+    @PostMapping(produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<String> addAsset(@RequestBody @Valid AssetModel assetModel) {
         if (assetModel.getAsset_name().length()>0&&assetModel.getAsset_copyright().length()>0&&assetModel.getAsset_price().length()>0&&assetModel.getAsset_type().length()>0)
         {
             assetServiceImpl.addAsset(assetModel);
@@ -53,7 +54,7 @@ public class AssetController {
     }
 
     @PutMapping
-    public ResponseEntity<String> updateAsset(@RequestBody AssetModel assetModel) {
+    public ResponseEntity<String> updateAsset(@RequestBody @Valid AssetModel assetModel) {
         try {
             assetServiceImpl.updateAsset(assetModel);
             return new ResponseEntity<>(HttpStatus.CREATED);
