@@ -13,17 +13,18 @@ public class AssetModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column
-    @NotEmpty(message = "Please enter asset name")
+    @NotEmpty(message = "Please enter Asset name")
     private String asset_name;
     @Column
-    @NotEmpty(message = "Please enter type")
+    @NotEmpty(message = "Please enter Type")
     private String asset_type;
     @Column
-    @NotEmpty(message = "Please enter number")
+    @NotEmpty(message = "Please enter Price")
     private String asset_price;
     @Column
-    @NotEmpty(message = "Please enter copyright")
+    @NotEmpty(message = "Please enter Copyright")
     private String asset_copyright;
     @Column
+    @NotEmpty(message = "Please enter Organization Id")
     private int orgid;
 }

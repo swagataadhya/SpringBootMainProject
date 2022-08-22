@@ -3,6 +3,7 @@ package com.program.EmployeeManagementSystem.Model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @Entity
@@ -11,6 +12,7 @@ public class OrganizationModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @NotEmpty(message = "Please enter Organization Name")
     @Column
     private String orgname;
 }
