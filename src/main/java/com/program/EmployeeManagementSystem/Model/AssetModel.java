@@ -1,12 +1,18 @@
 package com.program.EmployeeManagementSystem.Model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 @Table(name = "asset")
 public class AssetModel {
     @Id
@@ -24,7 +30,7 @@ public class AssetModel {
     @Column
     @NotEmpty(message = "Please enter Copyright")
     private String asset_copyright;
+    @NotNull(message = "Please enter Organization Id")
     @Column
-    @NotEmpty(message = "Please enter Organization Id")
     private int orgid;
 }

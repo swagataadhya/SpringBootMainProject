@@ -45,10 +45,14 @@ public class EmployeeController {
     @PostMapping(produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<String> addEmployee(@RequestBody @Valid EmployeeModel employeeModel)
     {
-        if(organizationInterface.addEmployee(employeeModel))
-            return new ResponseEntity<>("Created", HttpStatus.CREATED);
+        if(employeeModel.getOrgId()!=0) {
+            if (organizationInterface.addEmployee(employeeModel))
+                return new ResponseEntity<>("Created", HttpStatus.CREATED);
+            else
+                return new ResponseEntity<>("Email already exist",HttpStatus.BAD_REQUEST);
+        }
         else
-            return new ResponseEntity<>("EMAIL ID ALREADY EXISTS",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Please enter organization id",HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
 

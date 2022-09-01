@@ -10,12 +10,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 
 import javax.validation.constraints.*;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 @Data
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 @Table(name = "employee")
 public class EmployeeModel implements UserDetails {
     @Id
@@ -58,10 +57,11 @@ public class EmployeeModel implements UserDetails {
     @Email(message = "Email is not valid", regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")
     private String email;
 
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        /*List<SimpleGrantedAuthority> simpleGrantedAuthorities=new ArrayList<>();
+        simpleGrantedAuthorities.add(new SimpleGrantedAuthority(role));
+        return simpleGrantedAuthorities;*/
         return Collections.singletonList(new SimpleGrantedAuthority(role));
     }
 

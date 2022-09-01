@@ -1,7 +1,9 @@
 package com.program.EmployeeManagementSystem.Service;
 
 import com.program.EmployeeManagementSystem.Model.AssetModel;
+import com.program.EmployeeManagementSystem.Model.OrganizationModel;
 import com.program.EmployeeManagementSystem.Repository.AssetRepo;
+import com.program.EmployeeManagementSystem.Repository.OrganizationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +13,24 @@ import java.util.List;
 public class AssetServiceImpl implements AssetInterface {
     @Autowired
     AssetRepo assetRepo;
+    @Autowired
+    OrganizationRepo organizationRepo;
 
     @Override
     public void addAsset(AssetModel am) {
+        boolean found=false;
+        for (OrganizationModel o:organizationRepo.findAll())
+        {
+            if (o.getId()==am.getOrgid())
+            {
+                found=true;
+                break;
+            }
+        }
+        if (!found)
+        {
+            throw new NullPointerException("Organization not found");
+        }
         assetRepo.save(am);
     }
 
@@ -23,13 +40,26 @@ public class AssetServiceImpl implements AssetInterface {
     }
 
     @Override
-    public void deleteAsset(AssetModel am) {
-        assetRepo.deleteById(am.getId());
+    public void deleteAsset(int id) {
+        assetRepo.deleteById(id);
     }
 
     @Override
-    public void updateAsset(AssetModel am) {
-        AssetModel am2 = assetRepo.findById(am.getId());
+    public void updateAsset(int id,AssetModel am) {
+        boolean found=false;
+        for (OrganizationModel o:organizationRepo.findAll())
+        {
+            if (o.getId()==am.getOrgid())
+            {
+                found=true;
+                break;
+            }
+        }
+        if (!found)
+        {
+            throw new NullPointerException("Organization not found");
+        }
+        AssetModel am2 = assetRepo.findById(id);
         am2.setAsset_type(am.getAsset_type());
         am2.setAsset_copyright(am.getAsset_copyright());
         am2.setAsset_price(am.getAsset_price());

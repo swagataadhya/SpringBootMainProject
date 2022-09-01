@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 @Service
 public class OrganizationService implements OrganizationInterface {
@@ -20,6 +21,20 @@ public class OrganizationService implements OrganizationInterface {
 
     @Override
     public boolean addEmployee(EmployeeModel employeeModel) {
+        boolean found=false;
+        for (OrganizationModel o:organizationRepo.findAll())
+        {
+            if (o.getId()==employeeModel.getOrgId())
+            {
+                found=true;
+                break;
+            }
+        }
+        if (!found)
+        {
+            throw new NullPointerException("Organization not found");
+        }
+
         List<EmployeeModel>emp=employeeRepo.findAll();
         boolean isFound=false;
         for (EmployeeModel e:emp)
@@ -37,6 +52,7 @@ public class OrganizationService implements OrganizationInterface {
         else {
             employeeModel.setEmployee_password(passwordEncoder.encode(employeeModel.getEmployee_password()));
             employeeRepo.save(employeeModel);
+            System.out.println("okay");
             return true;
         }
 
@@ -69,6 +85,19 @@ public class OrganizationService implements OrganizationInterface {
     @Override
     public boolean updateEmployee(String email,EmployeeModel employeeModel)
     {
+        boolean found=false;
+        for (OrganizationModel o:organizationRepo.findAll())
+        {
+            if (o.getId()==employeeModel.getOrgId())
+            {
+                found=true;
+                break;
+            }
+        }
+        if (!found)
+        {
+            throw new NullPointerException("Organization not found");
+        }
         List<EmployeeModel> e1 = employeeRepo.findAll();
         boolean isFound=false;
         for (EmployeeModel e:e1){

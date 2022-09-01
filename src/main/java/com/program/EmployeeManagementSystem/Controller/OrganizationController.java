@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/organization")
+@Validated
 public class OrganizationController {
     @Autowired
     OrganizationService organizationService;
@@ -29,11 +31,12 @@ public class OrganizationController {
     public ResponseEntity<String>addOrganization(@RequestBody @Valid OrganizationModel organizationModel)
     {
         organizationService.addOrganization(organizationModel);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        //return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>("Created",HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String>deleteOrganization(@PathVariable int id)
+    public ResponseEntity<String>deleteOrganization(@PathVariable("id") int id)
     {
         try {
             organizationService.deleteOrganization(id);
@@ -52,7 +55,7 @@ public class OrganizationController {
         }
         catch (Exception e)
         {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Data not found",HttpStatus.NOT_FOUND);
         }
     }
 
@@ -70,7 +73,7 @@ public class OrganizationController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String>updateOrganization(@PathVariable int id,@RequestBody @Valid OrganizationModel organizationModel)
+    public ResponseEntity<String>updateOrganization(@PathVariable("id") int id,@RequestBody @Valid OrganizationModel organizationModel)
     {
         try {
             organizationService.updateOrganization(id,organizationModel);

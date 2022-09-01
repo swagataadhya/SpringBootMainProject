@@ -9,7 +9,7 @@ public interface AssetInterface {
 
     List<AssetModel> getAll();
 
-    void deleteAsset(AssetModel am);
+    void deleteAsset(int id);
 
-    void updateAsset(AssetModel am);
+    void updateAsset(int id,AssetModel am);
 }
