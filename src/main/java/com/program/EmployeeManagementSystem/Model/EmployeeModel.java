@@ -14,7 +14,7 @@ import java.util.*;
 
 @Data
 @Entity
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+
 @Table(name = "employee")
 public class EmployeeModel implements UserDetails {
     @Id
@@ -42,7 +42,9 @@ public class EmployeeModel implements UserDetails {
 
     @Column
     @NotEmpty(message = "Password should not be empty")
+    @Size(min = 8, message = "Password Length should be 8 or more than 8")
     private String employee_password;
+
     @NotNull(message = "orgId should not be empty")
     @Column(name = "orgid")
     private int orgId;

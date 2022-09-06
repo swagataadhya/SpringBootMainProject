@@ -22,8 +22,13 @@ public class AssetController {
     @PostMapping
     public ResponseEntity<String> addAsset(@RequestBody @Valid AssetModel assetModel) {
         if (assetModel.getOrgid()!=0) {
-            assetServiceImpl.addAsset(assetModel);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            if (!assetModel.getAsset_price().contains("-")) {
+                assetServiceImpl.addAsset(assetModel);
+                return new ResponseEntity<>("Created",HttpStatus.CREATED);
+            }
+            else {
+                return new ResponseEntity<>("Price should not be negative",HttpStatus.BAD_REQUEST);
+            }
         }
         else
             return new ResponseEntity<>("Please enter Organization Id",HttpStatus.INTERNAL_SERVER_ERROR);
@@ -44,19 +49,24 @@ public class AssetController {
         try
         {
             assetServiceImpl.deleteAsset(id);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("DELETED",HttpStatus.OK);
         }
         catch (Exception e)
         {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("NOT FOUND",HttpStatus.NOT_FOUND);
         }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateAsset(@PathVariable int id,@RequestBody @Valid AssetModel assetModel) {
         try {
-            assetServiceImpl.updateAsset(id,assetModel);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            if(!assetModel.getAsset_price().contains("-")) {
+                assetServiceImpl.updateAsset(id, assetModel);
+                return new ResponseEntity<>("Updated",HttpStatus.CREATED);
+            }
+            else {
+                return new ResponseEntity<>("price should not be negative",HttpStatus.BAD_REQUEST);
+            }
         } catch (NullPointerException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

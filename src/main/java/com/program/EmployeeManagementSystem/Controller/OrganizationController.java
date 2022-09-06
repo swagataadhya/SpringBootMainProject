@@ -81,7 +81,7 @@ public class OrganizationController {
         }
         catch (Exception e)
         {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Not found",HttpStatus.NOT_FOUND);
         }
     }
 
